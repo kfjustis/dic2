@@ -9,20 +9,55 @@
 #include "entropy.h"
 #include "huffman.h"
 
+int float_comparator (const void* a, const void* b) {
+	float f1 = *(const float*) a;
+	float f2 = *(const float*) b;
+	return (f1 > f2) - (f1 < f2);
+}
+
 int main(int argc, char *argv[]) {
 
 	// Run huffman first
 
 	// Create array with random character distributions
 	float dist[DIST_SIZE] = {1.0};
+	int i = 0;
+	for (i = 0; i < DIST_SIZE; i++) {
+		dist[i] = 1.0;
+	}
 
 	if (generate_dist_array(dist, DIST_SIZE) != 0) {
 		printf("Failed to generate distribution array!\n");
+		return -1;
 	}
 
-	// Print distributions	
+	/*
+	// Create distribution array from file
+	float file_dist[DIST_SIZE] = {0};
+	int i = 0;
+	for (i = 0; i < DIST_SIZE; i++) {
+		file_dist[i] = 1.0;
+		printf("%f\n", file_dist[i]);
+	}
+
+	if (compute_char_dist_from_file(argv[1], file_dist) != 0) {
+		printf("Failed to make distribution from file!\n");
+		return -1;
+	}
+
+	if (print_char_dist_array(file_dist) != 0) {
+		printf("Failed to print char dist from file!\n");
+		return -1;
+	}
+	*/
+
+	// qsort and print
+	qsort(dist, DIST_SIZE, sizeof(float), float_comparator);
+
+	printf("\n");
 	if (print_char_dist_array(dist) != 0) {
-		printf("Failed to print character distribution!\n");
+		printf("Failed to print sorted char dist from file!\n");
+		return -1;
 	}
 
 	return 0;

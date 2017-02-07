@@ -10,6 +10,9 @@ int compute_char_dist_from_file(char* filename, float* probs) {
 	/* Array to store character frequencies
 	 * (init to 1 to make Huffman nicer) */
 	unsigned long long counts[UCHAR_MAX+1] = {1};
+	for (i = 0; i <= UCHAR_MAX; i++) {
+		counts[i] = 1;
+	}
 
 	// Stores total sum of characters
 	unsigned long totalChars = 0;
@@ -29,8 +32,12 @@ int compute_char_dist_from_file(char* filename, float* probs) {
 
 	// Calculate probabilities
 	for (i = 0; i <= UCHAR_MAX; i++) {
-		probs[j] = (float)(counts[j]) / (float)totalChars;
+		probs[i] = (float)(counts[i]) / (float)totalChars;
 	}
+
+	// DEBUG ---------------------
+	printf("\ntotal chars: %lu\n\n", totalChars);
+	// ---------------------------
 
 	fclose(file);
 	return 0;

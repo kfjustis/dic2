@@ -15,6 +15,7 @@ int generate_dist_array(float* buffer, unsigned int size) {
 		sum += random;
 	}
 
+	// Normalize distribution so its sum is 1
 	for (i = 0; i < size; i++) {
 		buffer[i] = buffer[i] / sum;
 	}
