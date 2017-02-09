@@ -1,4 +1,4 @@
-# dic2
+# dic2 (incomplete)
 The focus on this project is to provide a means to generate character distributions
 from a given file. Afterwards, compression operations can be performed on the distribution. 
 Huffman compression will be added and performed on both a randomly generated distribution
