@@ -8,6 +8,7 @@
 
 #include "entropy.h"
 #include "huffman.h"
+#include "tree.h"
 
 int float_comparator (const void* a, const void* b) {
 	float f1 = *(const float*) a;
@@ -66,5 +67,11 @@ int main(int argc, char *argv[]) {
 		return -1;
 	}
 
+	//////////////////////////
+	/// TESTING
+	//////////////////////////
+	node_t* test = create_node('A', 2.2);
+	printf("test: %c :: %f\n", test->data, test->px);
+	destroy_tree(test);
 	return 0;
 }
