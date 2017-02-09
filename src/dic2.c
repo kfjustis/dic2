@@ -16,6 +16,10 @@ int float_comparator (const void* a, const void* b) {
 }
 
 int main(int argc, char *argv[]) {
+	if (argc != 2) {
+		printf("Invalid input!\nUsage: %s <input file>\n", argv[0]);
+		return -1;
+	}
 
 	// Run huffman first
 
@@ -31,31 +35,33 @@ int main(int argc, char *argv[]) {
 		return -1;
 	}
 
-	/*
 	// Create distribution array from file
 	float file_dist[DIST_SIZE] = {0};
-	int i = 0;
-	for (i = 0; i < DIST_SIZE; i++) {
+	for (i = 0; i < DIST_SIZE; i++) { // Init probabilities to 1.0
 		file_dist[i] = 1.0;
-		printf("%f\n", file_dist[i]);
 	}
 
 	if (compute_char_dist_from_file(argv[1], file_dist) != 0) {
 		printf("Failed to make distribution from file!\n");
 		return -1;
-	}
-
-	if (print_char_dist_array(file_dist) != 0) {
-		printf("Failed to print char dist from file!\n");
-		return -1;
-	}
-	*/
-
-	// qsort and print
+	}	
+	
+	// qsort and print random distributions
 	qsort(dist, DIST_SIZE, sizeof(float), float_comparator);
 
 	printf("\n");
+	printf("--GENERATED DISTRIBUTIONS--\n");
 	if (print_char_dist_array(dist) != 0) {
+		printf("Failed to print sorted char dist from file!\n");
+		return -1;
+	}
+
+	// qsort and print file distributions
+	qsort(file_dist, DIST_SIZE, sizeof(float), float_comparator);
+
+	printf("\n");
+	printf("--FILE DISTRIBUTIONS--\n");
+	if (print_char_dist_array(file_dist) != 0) {
 		printf("Failed to print sorted char dist from file!\n");
 		return -1;
 	}

@@ -35,10 +35,6 @@ int compute_char_dist_from_file(char* filename, float* probs) {
 		probs[i] = (float)(counts[i]) / (float)totalChars;
 	}
 
-	// DEBUG ---------------------
-	printf("\ntotal chars: %lu\n\n", totalChars);
-	// ---------------------------
-
 	fclose(file);
 	return 0;
 }
