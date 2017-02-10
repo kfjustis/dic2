@@ -44,6 +44,8 @@ int print_char_dist_array(float* probs) {
 		return -1;
 	}
 
+	printf("\n");
+	printf("--GENERATED FLOAT ARRAY--\n");
 	int i = 0;
 	for (i = 0; i <= UCHAR_MAX; i++) {
 		//if (isalpha(i) && i >= 32 && i <= 126) {

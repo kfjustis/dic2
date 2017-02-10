@@ -4,6 +4,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <limits.h> // for UCHAR_MAX
 
 #define DIST_SIZE (UCHAR_MAX + 1)

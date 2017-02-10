@@ -21,3 +21,13 @@ void destroy_tree(node_t* root) {
 		free(root);
 	}
 }
+
+void inorder_print_tree(node_t* root) {
+	if (!root) {
+		return;
+	}
+
+	inorder_print_tree(root->left);
+	//printf("%c :: %f -> ", root->data, root->px);
+	inorder_print_tree(root->right);
+}

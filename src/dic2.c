@@ -55,6 +55,8 @@ int main(int argc, char *argv[]) {
 	}
 
 	// print from node array
+	printf("\n");
+	printf("--GENERATED NODE ARRAY--\n");
 	for (i = 0; i < DIST_SIZE; i++) {
 		printf("i: %d :: c: %c :: px: %f\n", i, nodes[i].data, nodes[i].px);
 	}
@@ -69,8 +71,63 @@ int main(int argc, char *argv[]) {
 	}
 
 	// generate huffman tree from sorted array here
+	float firstSum = 0;
+	node_t* root;
+	i = 0;
 
-	/*
+	firstSum = nodes[i].px + nodes[i+1].px;
+	root = create_node(0, firstSum);
+
+	/* set used float values in node array to -1 for sorting purposes
+	 * and override one of the consumed nodes so super character gets
+	 * placed back in the array */
+	nodes[i].px = -1.0;
+	memcpy(&nodes[i+1], &root, sizeof(node_t));
+	
+	// sort again for loop
+	qsort(nodes, DIST_SIZE, sizeof(node_t), node_comparator);
+
+	// print before loop
+	printf("\n--BEFORE LOOP--\n");
+	for (i = 0; i < DIST_SIZE; i++) {
+		printf("i: %d :: c: %c :: px: %f\n", i, nodes[i].data, nodes[i].px);
+	}
+
+	float tempSum = 0;
+	node_t* tempNode;
+	for (i = 0; i < DIST_SIZE-1; i++) {
+		if (nodes[i].px != -1.0) {
+			tempSum = nodes[i].px + nodes[i+1].px;
+			tempNode = create_node(0, tempSum);
+
+			// copy joined nodes into children of root
+			tempNode->left = root;
+			tempNode->right = NULL;
+			//memcpy(tempNode->left, &nodes[i], sizeof(node_t));
+			//memcpy(tempNode->right, &nodes[i+1], sizeof(node_t));
+			root = tempNode;
+
+			nodes[i].px = -1.0;
+			memcpy(&nodes[i+1], &root, sizeof(node_t));
+
+			// sort again for loop
+			qsort(nodes, DIST_SIZE, sizeof(node_t), node_comparator);
+		}
+	}
+
+	// print after loop
+	printf("\n--AFTER LOOP--\n");
+	for (i = 0; i < DIST_SIZE; i++) {
+		printf("i: %d :: c: %c :: px: %f\n", i, nodes[i].data, nodes[i].px);
+	}
+
+	printf("tnode: %c:: %f\n", tempNode->data, tempNode->px);
+
+	// print tree
+	inorder_print_tree(root);
+
+	///////////////////////////////////////////////////////////////////
+
 	// Create distribution array from file
 	float file_dist[DIST_SIZE] = {0};
 	for (i = 0; i < DIST_SIZE; i++) { // Init probabilities to 1.0
@@ -81,9 +138,7 @@ int main(int argc, char *argv[]) {
 		printf("Failed to make distribution from file!\n");
 		return -1;
 	}	
-	*/
 
-	/*
 	// qsort and print file distributions
 	qsort(file_dist, DIST_SIZE, sizeof(float), float_comparator);
 
@@ -92,7 +147,7 @@ int main(int argc, char *argv[]) {
 	if (print_char_dist_array(file_dist) != 0) {
 		printf("Failed to print sorted char dist from file!\n");
 		return -1;
-	}*/
+	}
 	
 	return 0;
 }

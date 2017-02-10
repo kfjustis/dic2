@@ -28,6 +28,8 @@ int print_dist_array(float* dist_array, unsigned int size) {
 		return -1;
 	}
 
+	printf("\n");
+	printf("--GENERATED FLOAT ARRAY--\n");
 	unsigned int i = 0;
 	for (i = 0; i < size; i++) {
 		printf("idx: %u :: prob: %f\n", i, dist_array[i]);
