@@ -22,3 +22,18 @@ int generate_dist_array(float* buffer, unsigned int size) {
 
 	return 0;
 }
+
+int print_dist_array(float* dist_array, unsigned int size) {
+	if (!dist_array || size == 0) {
+		return -1;
+	}
+
+	printf("\n");
+	printf("--GENERATED FLOAT ARRAY--\n");
+	unsigned int i = 0;
+	for (i = 0; i < size; i++) {
+		printf("idx: %u :: prob: %f\n", i, dist_array[i]);
+	}
+
+	return 0;
+}
